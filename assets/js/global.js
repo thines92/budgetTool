@@ -73,15 +73,11 @@ function newTrans() {
 	function saveEdit() {
 		var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
 		var oldInflow = transList[dataIndex].inflow;
-		alert("oldInflow" + oldInflow);
 		var newInflow = parseFloat($('#changeInflow').val());
-		alert("newInflow: " + newInflow)
 		transList[dataIndex].inflow = newInflow;
 		// $(this).parent().empty();
-		$(this).parent().html(inflow);
-		alert("pretotal" + $("#total").html());
+		$(this).parent().html(newInflow);
 		total = ($("#total").html() - oldInflow) + newInflow;
-		alert("posttotal" + total);
 		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
 	}
 
