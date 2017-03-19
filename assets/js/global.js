@@ -70,7 +70,7 @@ function newTrans() {
 	}
 
 	//adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
-	$("body").on('click', '.transaction', addEditButton());
+	$("body").on('click', '.transaction', addEditButton);
 
 	//finds the data-index-value of the editButton's parent element
 	$("body").on('click', '.editButton', function() {
