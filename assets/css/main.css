@@ -1,0 +1,35 @@
+.transactionList {
+	border: 1px solid black;
+	width: 90%;
+	margin-left: 5%;
+	display: inline-flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.transaction {
+	display: flex;
+	justify-content: space-between;
+}
+
+.total-balance {
+	display: flex;
+	justify-content: flex-end;
+}
+
+#transForm {
+	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+#transForm input[type=text] {
+	width: 40px;
+}
+#transForm input[type=button] {
+	font-size: 12px;
+}
+
+.highlight {
+	background-color: blue;
+}
