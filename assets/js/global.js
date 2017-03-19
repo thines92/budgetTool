@@ -51,7 +51,7 @@ function newTrans() {
 				total = total - transList[i].outflow;
 			}
 		}
-		$(".total-balance").html("<p class='total'>Total: $" + total + "</p>");
+		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
 	}
 	
 	
@@ -62,6 +62,7 @@ function newTrans() {
 	transCounter++;
 	$("#transForm")[0].reset();
 
+	//adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
 	function addEditButton() {
 		$(".editButton").remove();
 		$(".transaction.highlight").removeClass('highlight');
@@ -69,27 +70,32 @@ function newTrans() {
 		$(this).append("<input type='button' class='editButton' value='edit' />")
 	}
 
-	//adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
+	function saveEdit() {
+		var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
+		var oldInflow = transList[dataIndex].inflow;
+		alert("oldInflow" + oldInflow);
+		var newInflow = parseFloat($('#changeInflow').val());
+		alert("newInflow: " + newInflow)
+		transList[dataIndex].inflow = newInflow;
+		// $(this).parent().empty();
+		$(this).parent().html(inflow);
+		alert("pretotal" + $("#total").html());
+		total = ($("#total").html() - oldInflow) + newInflow;
+		alert("posttotal" + total);
+		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+	}
+
 	$("body").on('click', '.transaction', addEditButton);
 
 	//finds the data-index-value of the editButton's parent element
 	$("body").on('click', '.editButton', function() {
-		// var dataIndex = $(this).parent().attr('data-index-value');
 		// transList[dataIndex].inflow = 500;
 		// alert(JSON.stringify(transList[dataIndex]));
 		$(this).parent().find('p .inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
 		
 	})
 
-	$("body").on('click', '#saveEdit', function() {
-		var oldInflow = inflow;
-		// alert(oldInflow);
-		var newInflow = parseFloat($('#changeInflow').val());
-		inflow = newInflow;
-		// $(this).parent().empty();
-		$(this).parent().html(inflow);
-		total = (total - oldInflow) + newInflow;
-	})
+	$("body").on('click', '#saveEdit', saveEdit);
 	
 };
 
