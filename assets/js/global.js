@@ -61,6 +61,32 @@ function newTrans() {
 	calcTotal();
 	transCounter++;
 	$("#transForm")[0].reset();
+
+	//adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
+	$("body").on('click', '.transaction', function() {
+		$(".editButton").remove();
+		$(".transaction.highlight").removeClass('highlight');
+		$(this).addClass('highlight');
+		var thisID = $(this).attr("data-index-value");
+		// alert(JSON.stringify(transList[thisID], null, 4));
+		$(this).append("<input type='button' class='editButton' value='edit' />")
+	});
+
+	//finds the data-index-value of the editButton's parent element
+	$("body").on('click', '.editButton', function() {
+		// var dataIndex = $(this).parent().attr('data-index-value');
+		// transList[dataIndex].inflow = 500;
+		// alert(JSON.stringify(transList[dataIndex]));
+		$(this).parent().find('p .inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
+		
+	})
+
+	$("body").on('click', '#saveEdit', function() {
+		var newInflow = parseFloat($('#changeInflow').val());
+		inflow = newInflow;
+		$(this).parent().empty();
+		$('.inflowSpan').html(inflow);
+	})
 	
 };
 
@@ -82,29 +108,7 @@ $("#addTransaction").click(function() {
 // 	$("#transForm").hide();
 // })
 
-//adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
-$("body").on('click', '.transaction', function() {
-	$(".editButton").remove();
-	$(".transaction.highlight").removeClass('highlight');
-	$(this).addClass('highlight');
-	var thisID = $(this).attr("data-index-value");
-	// alert(JSON.stringify(transList[thisID], null, 4));
-	$(this).append("<input type='button' class='editButton' value='edit' />")
-});
 
-//finds the data-index-value of the editButton's parent element
-$("body").on('click', '.editButton', function() {
-	// var dataIndex = $(this).parent().attr('data-index-value');
-	// transList[dataIndex].inflow = 500;
-	// alert(JSON.stringify(transList[dataIndex]));
-	$(this).parent().find('p .inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
-	
-})
-
-$("body").on('click', '#saveEdit', function() {
-	var inflow = $('#changeInflow').val();
-	alert(inflow);
-})
 
 
 
