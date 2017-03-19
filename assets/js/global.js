@@ -83,9 +83,8 @@ function newTrans() {
 
 	$("body").on('click', '#saveEdit', function() {
 		var newInflow = parseFloat($('#changeInflow').val());
-		inflow = newInflow;
-		$(this).parent().empty();
-		$('.inflowSpan').html(inflow);
+		// $(this).parent().empty();
+		$(this).parent().html(newInflow);
 	})
 	
 };
