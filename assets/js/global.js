@@ -71,14 +71,18 @@ function newTrans() {
 	}
 
 	function saveEdit() {
-		var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
-		var oldInflow = transList[dataIndex].inflow;
-		var newInflow = parseFloat($('#changeInflow').val());
-		transList[dataIndex].inflow = newInflow;
-		// $(this).parent().empty();
-		$(this).parent().html(newInflow);
-		total = ($("#total").html() - oldInflow) + newInflow;
-		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+		function editInflow() {
+			var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
+			var oldInflow = transList[dataIndex].inflow;
+			var newInflow = parseFloat($('#changeInflow').val());
+			transList[dataIndex].inflow = newInflow;
+			$(this).parent().html(newInflow);
+			total = ($("#total").html() - oldInflow) + newInflow;
+			$(".inflowSpan").html(newInflow);
+			$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+		}
+
+		editInflow();
 	}
 
 	$("body").on('click', '.transaction', addEditButton);
