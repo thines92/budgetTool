@@ -62,15 +62,15 @@ function newTrans() {
 	transCounter++;
 	$("#transForm")[0].reset();
 
-	//adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
-	$("body").on('click', '.transaction', function() {
+	function addEditButton() {
 		$(".editButton").remove();
 		$(".transaction.highlight").removeClass('highlight');
 		$(this).addClass('highlight');
-		var thisID = $(this).attr("data-index-value");
-		// alert(JSON.stringify(transList[thisID], null, 4));
 		$(this).append("<input type='button' class='editButton' value='edit' />")
-	});
+	}
+
+	//adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
+	$("body").on('click', '.transaction', addEditButton());
 
 	//finds the data-index-value of the editButton's parent element
 	$("body").on('click', '.editButton', function() {
@@ -82,9 +82,13 @@ function newTrans() {
 	})
 
 	$("body").on('click', '#saveEdit', function() {
+		var oldInflow = inflow;
+		// alert(oldInflow);
 		var newInflow = parseFloat($('#changeInflow').val());
+		inflow = newInflow;
 		// $(this).parent().empty();
-		$(this).parent().html(newInflow);
+		$(this).parent().html(inflow);
+		total = (total - oldInflow) + newInflow;
 	})
 	
 };
