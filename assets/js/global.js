@@ -71,21 +71,48 @@ function newTrans() {
 	}
 
 	function saveEdit() {
-		var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
-		var oldInflow = transList[dataIndex].inflow;
-		var newInflow = parseFloat($('#changeInflow').val());
-		transList[dataIndex].inflow = newInflow;
-		$(this).parent().html(newInflow);
-		total = ($("#total").html() - oldInflow) + newInflow;
-		$("#inflowSpan").html(newInflow);
-		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+		function saveSource() {
+			var dataIndex = $("#changeSource").closest(".transaction").attr('data-index-value');
+			var newSource = $("#changeSource").val();
+			transList[dataIndex].source = newSource;
+			$("#sourceSpan").html(newSource);
+			
+		}
+		function saveCategory() {
+			var dataIndex = $("#changeCategory").closest(".transaction").attr('data-index-value');
+			var newCategory = $("#changeCategory").val();
+			transList[dataIndex].category = newCategory;
+			$("#categorySpan").html(newCategory);
+		}
+		function saveInflow() {
+			var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
+			var oldInflow = transList[dataIndex].inflow;
+			var newInflow = parseFloat($('#changeInflow').val());
+			transList[dataIndex].inflow = newInflow;
+			$(this).parent().html(newInflow);
+			total = ($("#total").html() - oldInflow) + newInflow;
+			$("#inflowSpan").html(newInflow);
+			$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+		}
+
+		saveSource();
+		saveCategory();
+		saveInflow();
 	}
 
 	function loadEdit() {
+		function sourceEdit() {
+			$(".editButton").parent().find('p #sourceSpan').html("<input type='text' placeholder='source' id='changeSource' />")
+		}
+		function categoryEdit() {
+			$(".editButton").parent().find('p #categorySpan').html("<input type='text' placeholder='category' id='changeCategory' />")
+		}
 		function inflowEdit() {
 			$(".editButton").parent().find('p #inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
 		}
 
+		sourceEdit();
+		categoryEdit();
 		inflowEdit();
 	}
 
