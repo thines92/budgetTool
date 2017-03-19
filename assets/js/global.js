@@ -75,14 +75,14 @@ function newTrans() {
 			var dataIndex = $("#changeSource").closest(".transaction").attr('data-index-value');
 			var newSource = $("#changeSource").val();
 			transList[dataIndex].source = newSource;
-			$("#sourceSpan").html(newSource);
+			$("#saveEdit").parent().find("p #sourceSpan").html(newSource);
 			
 		}
 		function saveCategory() {
 			var dataIndex = $("#changeCategory").closest(".transaction").attr('data-index-value');
 			var newCategory = $("#changeCategory").val();
 			transList[dataIndex].category = newCategory;
-			$("#categorySpan").html(newCategory);
+			$("#saveEdit").parent().find("p #categorySpan").html(newCategory);
 		}
 		function saveInflow() {
 			var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
@@ -91,13 +91,16 @@ function newTrans() {
 			transList[dataIndex].inflow = newInflow;
 			$(this).parent().html(newInflow);
 			total = ($("#total").html() - oldInflow) + newInflow;
-			$("#inflowSpan").html(newInflow);
+			$("#saveEdit").parent().find("p #inflowSpan").html(newInflow);
 			$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
 		}
+
+		
 
 		saveSource();
 		saveCategory();
 		saveInflow();
+		$("#saveEdit").remove();
 	}
 
 	function loadEdit() {
@@ -108,12 +111,18 @@ function newTrans() {
 			$(".editButton").parent().find('p #categorySpan').html("<input type='text' placeholder='category' id='changeCategory' />")
 		}
 		function inflowEdit() {
-			$(".editButton").parent().find('p #inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
+			$(".editButton").parent().find('p #inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />");
 		}
+		function showButton() {
+			$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />");
+		}
+
+		
 
 		sourceEdit();
 		categoryEdit();
 		inflowEdit();
+		showButton();
 	}
 
 	$("body").on('click', '.transaction', addEditButton);
