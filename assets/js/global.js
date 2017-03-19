@@ -23,7 +23,7 @@ function newTrans() {
 		
 		var categoryHTML = "Category: " + category + "";
 		
-		var inflowHTML = "Inflow: $<span>" + transList[transCounter].inflow + "</span>";
+		var inflowHTML = "Inflow: $<span class='inflowSpan'>" + transList[transCounter].inflow + "</span>";
 		
 		var outflowHTML = "Outflow: $<span>" + transList[transCounter].outflow + "</span>";
 		
@@ -97,18 +97,14 @@ $("body").on('click', '.editButton', function() {
 	// var dataIndex = $(this).parent().attr('data-index-value');
 	// transList[dataIndex].inflow = 500;
 	// alert(JSON.stringify(transList[dataIndex]));
-	$(".editButton").remove();
-	$(this).parent().append("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
-	// transList[dataIndex].inflow = $("#changeInflow").val();
-	// alert(transList[dataIndex].inflow);
+	$(this).parent().find('p .inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
 	
 })
 
-// $("body").on('click', '#saveEdit', function() {
-// 	var dataIndex = $(this).parent().attr('data-index-value');
-// 	transList[dataIndex].inflow = $("#changeInflow").val();
-// 	alert(transList[dataIndex].inflow);
-// })
+$("body").on('click', '#saveEdit', function() {
+	var inflow = $('#changeInflow').val();
+	alert(inflow);
+})
 
 
 
