@@ -19,13 +19,13 @@ function newTrans() {
 		
 		var divHTML = "<div class='transaction' data-index-value='" + transCounter + "'><p></p></div>"
 		
-		var sourceHTML = "Source</span>: " + transList[transCounter].source;
+		var sourceHTML = "Source: <span id='sourceSpan'>" + transList[transCounter].source + "</span>";
 		
-		var categoryHTML = "Category: " + category + "";
+		var categoryHTML = "Category: <span id='categorySpan'>" + category + "</span>";
 		
-		var inflowHTML = "Inflow: $<span class='inflowSpan'>" + transList[transCounter].inflow + "</span>";
+		var inflowHTML = "Inflow: $<span id='inflowSpan'>" + transList[transCounter].inflow + "</span>";
 		
-		var outflowHTML = "Outflow: $<span>" + transList[transCounter].outflow + "</span>";
+		var outflowHTML = "Outflow: $<span id='outflowSpan'>" + transList[transCounter].outflow + "</span>";
 		
 		
 	
@@ -71,29 +71,28 @@ function newTrans() {
 	}
 
 	function saveEdit() {
-		function editInflow() {
-			var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
-			var oldInflow = transList[dataIndex].inflow;
-			var newInflow = parseFloat($('#changeInflow').val());
-			transList[dataIndex].inflow = newInflow;
-			$(this).parent().html(newInflow);
-			total = ($("#total").html() - oldInflow) + newInflow;
-			$(".inflowSpan").html(newInflow);
-			$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+		var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
+		var oldInflow = transList[dataIndex].inflow;
+		var newInflow = parseFloat($('#changeInflow').val());
+		transList[dataIndex].inflow = newInflow;
+		$(this).parent().html(newInflow);
+		total = ($("#total").html() - oldInflow) + newInflow;
+		$("#inflowSpan").html(newInflow);
+		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+	}
+
+	function loadEdit() {
+		function inflowEdit() {
+			$(".editButton").parent().find('p #inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
 		}
 
-		editInflow();
+		inflowEdit();
 	}
 
 	$("body").on('click', '.transaction', addEditButton);
 
 	//finds the data-index-value of the editButton's parent element
-	$("body").on('click', '.editButton', function() {
-		// transList[dataIndex].inflow = 500;
-		// alert(JSON.stringify(transList[dataIndex]));
-		$(this).parent().find('p .inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />" + "<input type='button' value='save' id='saveEdit' />");
-		
-	})
+	$("body").on('click', '.editButton', loadEdit);
 
 	$("body").on('click', '#saveEdit', saveEdit);
 	
