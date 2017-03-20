@@ -75,23 +75,23 @@ function newTrans() {
 			var dataIndex = $("#changeSource").closest(".transaction").attr('data-index-value');
 			var newSource = $("#changeSource").val();
 			transList[dataIndex].source = newSource;
-			$("#saveEdit").parent().find("p #sourceSpan").html(newSource);
+			$("[data-index-value='" + dataIndex + "'").find("p #sourceSpan").html(newSource);
 			
 		}
 		function saveCategory() {
 			var dataIndex = $("#changeCategory").closest(".transaction").attr('data-index-value');
 			var newCategory = $("#changeCategory").val();
 			transList[dataIndex].category = newCategory;
-			$("#saveEdit").parent().find("p #categorySpan").html(newCategory);
+			$("[data-index-value='" + dataIndex + "'").find("p #categorySpan").html(newCategory);
 		}
 		function saveInflow() {
 			var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
 			var oldInflow = transList[dataIndex].inflow;
 			var newInflow = parseFloat($('#changeInflow').val());
 			transList[dataIndex].inflow = newInflow;
-			$(this).parent().html(newInflow);
+			// $(this).parent().html(newInflow);
 			total = ($("#total").html() - oldInflow) + newInflow;
-			$("#saveEdit").parent().find("p #inflowSpan").html(newInflow);
+			$("[data-index-value='" + dataIndex + "'").find("p #inflowSpan").html(newInflow);
 			$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
 		}
 
@@ -104,6 +104,7 @@ function newTrans() {
 	}
 
 	function loadEdit() {
+		$("#saveEdit").remove();
 		function sourceEdit() {
 			$(".editButton").parent().find('p #sourceSpan').html("<input type='text' placeholder='source' id='changeSource' />")
 		}
@@ -119,10 +120,10 @@ function newTrans() {
 
 		
 
+		showButton();
 		sourceEdit();
 		categoryEdit();
 		inflowEdit();
-		showButton();
 	}
 
 	$("body").on('click', '.transaction', addEditButton);
