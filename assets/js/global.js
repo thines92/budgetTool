@@ -90,8 +90,7 @@ function newTrans() {
 				var oldInflow = transList[dataIndex].inflow;
 				var newInflow = parseFloat($('#changeInflow').val());
 				transList[dataIndex].inflow = newInflow;
-				// $(this).parent().html(newInflow);
-				total = ($("#total").html() - oldInflow) - newInflow;
+				total = ($("#total").html() - oldInflow) + newInflow;
 				$("[data-index-value='" + dataIndex + "'").find("p #inflowSpan").html(newInflow);
 				$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
 			}
@@ -100,13 +99,9 @@ function newTrans() {
 			if($("#outflowSpan").length) {
 				var dataIndex = $("#changeOutflow").closest(".transaction").attr('data-index-value');
 				var oldOutflow = transList[dataIndex].outflow;
-				alert(oldOutflow);
 				var newOutflow = parseFloat($('#changeOutflow').val());
 				transList[dataIndex].outflow = newOutflow;
-				alert(newOutflow);
-				// $(this).parent().html(newOutflow);
-				total = ($("#total").html() - oldOutflow) + newOutflow;
-				alert(total);
+				total = (parseFloat($("#total").html()) + parseFloat(oldOutflow)) - parseFloat(newOutflow);
 				$("[data-index-value='" + dataIndex + "'").find("p #outflowSpan").html(newOutflow);
 				$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
 			}
