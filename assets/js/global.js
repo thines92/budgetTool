@@ -85,14 +85,31 @@ function newTrans() {
 			$("[data-index-value='" + dataIndex + "'").find("p #categorySpan").html(newCategory);
 		}
 		function saveInflow() {
-			var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
-			var oldInflow = transList[dataIndex].inflow;
-			var newInflow = parseFloat($('#changeInflow').val());
-			transList[dataIndex].inflow = newInflow;
-			// $(this).parent().html(newInflow);
-			total = ($("#total").html() - oldInflow) + newInflow;
-			$("[data-index-value='" + dataIndex + "'").find("p #inflowSpan").html(newInflow);
-			$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+			if($("#inflowSpan").length) {
+				var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
+				var oldInflow = transList[dataIndex].inflow;
+				var newInflow = parseFloat($('#changeInflow').val());
+				transList[dataIndex].inflow = newInflow;
+				// $(this).parent().html(newInflow);
+				total = ($("#total").html() - oldInflow) - newInflow;
+				$("[data-index-value='" + dataIndex + "'").find("p #inflowSpan").html(newInflow);
+				$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+			}
+		}
+		function saveOutflow() {
+			if($("#outflowSpan").length) {
+				var dataIndex = $("#changeOutflow").closest(".transaction").attr('data-index-value');
+				var oldOutflow = transList[dataIndex].outflow;
+				alert(oldOutflow);
+				var newOutflow = parseFloat($('#changeOutflow').val());
+				transList[dataIndex].outflow = newOutflow;
+				alert(newOutflow);
+				// $(this).parent().html(newOutflow);
+				total = ($("#total").html() - oldOutflow) + newOutflow;
+				alert(total);
+				$("[data-index-value='" + dataIndex + "'").find("p #outflowSpan").html(newOutflow);
+				$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+			}
 		}
 
 		
@@ -100,6 +117,7 @@ function newTrans() {
 		saveSource();
 		saveCategory();
 		saveInflow();
+		saveOutflow();
 		$("#saveEdit").remove();
 	}
 
@@ -114,6 +132,9 @@ function newTrans() {
 		function inflowEdit() {
 			$(".editButton").parent().find('p #inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />");
 		}
+		function outflowEdit() {
+			$(".editButton").parent().find('p #outflowSpan').html("<input type='text' placeholder='outflow' id='changeOutflow' />");
+		}
 		function showButton() {
 			$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />");
 		}
@@ -124,6 +145,7 @@ function newTrans() {
 		sourceEdit();
 		categoryEdit();
 		inflowEdit();
+		outflowEdit();
 	}
 
 	$("body").on('click', '.transaction', addEditButton);
