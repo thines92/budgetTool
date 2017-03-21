@@ -1,0 +1,1 @@
+1: when adding a transaction without source and category, nothing is displayed and total is NaN

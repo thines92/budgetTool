@@ -25,7 +25,7 @@ function newTrans() {
 		
 		var inflowHTML = "Inflow: $<span id='inflowSpan'>" + transList[transCounter].inflow + "</span>";
 		
-		var outflowHTML = "Outflow: $<span id='outflowSpan'>" + transList[transCounter].outflow + "</span>";
+		var outflowHTML = "Outflow: -$<span id='outflowSpan'>" + transList[transCounter].outflow + "</span>";
 		
 		
 	
@@ -114,6 +114,7 @@ function newTrans() {
 		saveInflow();
 		saveOutflow();
 		$("#saveEdit").remove();
+		$("#cancelEdit").remove();
 	}
 
 	function loadEdit() {
@@ -130,17 +131,26 @@ function newTrans() {
 		function outflowEdit() {
 			$(".editButton").parent().find('p #outflowSpan').html("<input type='text' placeholder='outflow' id='changeOutflow' />");
 		}
-		function showButton() {
-			$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />");
-		}
+		function showButtons() {
+			$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />"
+			 + "<input type='button' value='cancel' id='cancelEdit' />");
 
-		
+		}		
 
-		showButton();
+		showButtons();
 		sourceEdit();
 		categoryEdit();
 		inflowEdit();
-		outflowEdit();
+		outflowEdit();	
+	}
+
+	function cancelEdit() {
+		$("#sourceSpan").html(source);
+		$("#categorySpan").html(category);
+		$("#inflowSpan").html(inflow);
+		$("#outflowSpan").html(outflow);
+		$("#saveEdit").remove();
+		$("#cancelEdit").remove();
 	}
 
 	$("body").on('click', '.transaction', addEditButton);
@@ -149,6 +159,8 @@ function newTrans() {
 	$("body").on('click', '.editButton', loadEdit);
 
 	$("body").on('click', '#saveEdit', saveEdit);
+
+	$("body").on('click', '#cancelEdit', cancelEdit);
 	
 };
 
