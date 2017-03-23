@@ -67,7 +67,12 @@ function newTrans() {
 		$(".editButton").remove();
 		$(".transaction.highlight").removeClass('highlight');
 		$(this).addClass('highlight');
-		$(this).append("<input type='button' class='editButton' value='edit' />")
+		$(this).append("<input type='button' class='editButton' value='edit' />");
+	}
+
+	function addDeleteButton() {
+		$(".deleteButton").remove();
+		$(this).append("<input type='button' class='deleteButton' value='delete' />");
 	}
 
 	function saveEdit() {
@@ -144,6 +149,15 @@ function newTrans() {
 		outflowEdit();	
 	}
 
+	function deleteTransaction() {
+		$('.deleteButton').parent().remove();
+	}
+
+	function deleteTransactionObject() {
+		var dataIndex = $(".deleteButton").closest(".transaction").attr('data-index-value');
+		transList.splice(dataIndex, 1);
+	}
+
 	function cancelEdit() {
 		$("#sourceSpan").html(source);
 		$("#categorySpan").html(category);
@@ -154,11 +168,15 @@ function newTrans() {
 	}
 
 	$("body").on('click', '.transaction', addEditButton);
+	$("body").on('click', '.transaction', addDeleteButton);
 
 	//finds the data-index-value of the editButton's parent element
 	$("body").on('click', '.editButton', loadEdit);
 
 	$("body").on('click', '#saveEdit', saveEdit);
+
+	$("body").on('click', '.deleteButton', deleteTransaction);
+	$("body").on('click', '.deleteButton', deleteTransactionObject);
 
 	$("body").on('click', '#cancelEdit', cancelEdit);
 	
