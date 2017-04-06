@@ -1,6 +1,58 @@
 var transList = [];
 var transaction = {}
 var transCounter = 0;
+var total = 0;
+
+// function Transaction(id, source, category, inflow, outflow) {
+// 	this.id = id;
+// 	this.source = source;
+// 	this.category = category;
+// 	this.inflow = inflow;
+// 	this.ouflow = outflow;
+// }
+
+// create new transaction and push to array on button click
+function pushTrans() {
+	transList.push({
+		id: transList.length, 
+		source: $("#source").val(), 
+		category:$("#category").val(),
+		inflow: parseFloat($("#inflow").val()), 
+		outflow: parseFloat($("#outflow").val())
+	});
+}
+
+// display all transactions onto dom
+function displayTrans() {
+	$("<div class='transaction' data-index-value='" + transCounter + "'> </div>").appendTo(".transactionList");
+	$("<p>Source: <span id='sourceSpan'>" + transList[transCounter].source + "</span></p>").appendTo(".transaction:last-child");
+	$("<p>Category: <span id='categorySpan'>" + transList[transCounter].category + "</span></p>").appendTo(".transaction:last-child");
+	if($("#inflowSpan").length > 0) {
+		$("<p>Inflow: $<span id='inflowSpan'>" + transList[transCounter].inflow + "</span></p>").appendTo(".transaction:last-child");
+	}
+	if($("#outflowSpan").length > 0) {
+		$("<p>Outflow: -$<span id='outflowSpan'>" + transList[transCounter].outflow + "</span></p>").appendTo(".transaction:last-child");
+	}
+}
+
+function calcTotal() {
+		for (var i=0; i < transList.length; i++) {
+			if (!isNaN(transList[i].inflow)) {
+				total = total + transList[i].inflow;
+			} else {
+				total = total - transList[i].outflow;
+			}
+		}
+		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+}
+
+function createTrans() {
+	pushTrans();
+	displayTrans();
+	calcTotal();
+}
+
+
 
 
 function newTrans() {
@@ -11,54 +63,54 @@ function newTrans() {
 	var inflow = parseFloat($("#inflow").val());
 	var outflow = parseFloat($("#outflow").val());
 	
-	function createTrans() {
-		transList.push({id: transCounter, source: source, inflow: inflow, outflow: outflow});
-	};
+	// function pushTrans() {
+	// 	transList.push({id: transCounter, source: source, inflow: inflow, outflow: outflow});
+	// };
 	
-	function displayTrans() {
+	// function displayTrans() {
 		
-		var divHTML = "<div class='transaction' data-index-value='" + transCounter + "'><p></p></div>"
+	// 	var divHTML = "<div class='transaction' data-index-value='" + transCounter + "'><p></p></div>"
 		
-		var sourceHTML = "Source: <span id='sourceSpan'>" + transList[transCounter].source + "</span>";
+	// 	var sourceHTML = "Source: <span id='sourceSpan'>" + transList[transCounter].source + "</span>";
 		
-		var categoryHTML = "Category: <span id='categorySpan'>" + category + "</span>";
+	// 	var categoryHTML = "Category: <span id='categorySpan'>" + category + "</span>";
 		
-		var inflowHTML = "Inflow: $<span id='inflowSpan'>" + transList[transCounter].inflow + "</span>";
+	// 	var inflowHTML = "Inflow: $<span id='inflowSpan'>" + transList[transCounter].inflow + "</span>";
 		
-		var outflowHTML = "Outflow: -$<span id='outflowSpan'>" + transList[transCounter].outflow + "</span>";
-		
-		
-	
-		if (!isNaN(inflow) || !isNaN(outflow)) {
-			$(".transactionList").append(divHTML);
-			$(".transaction:last-child p").append(sourceHTML);
-			$(".transaction:last-child p").append(categoryHTML);
-			if(!isNaN(transList[transCounter].inflow)) {
-				$(".transaction:last-child p").append(inflowHTML);
-			} else {
-					$(".transaction:last-child p").append(outflowHTML);
-			};
-		}
-	}
+	// 	var outflowHTML = "Outflow: -$<span id='outflowSpan'>" + transList[transCounter].outflow + "</span>";
 		
 		
 	
-	function calcTotal() {
-		for (var i=0; i < transList.length; i++) {
-			if (!isNaN(transList[i].inflow)) {
-				total = total + transList[i].inflow;
-			} else {
-				total = total - transList[i].outflow;
-			}
-		}
-		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
-	}
+	// 	if (!isNaN(inflow) || !isNaN(outflow)) {
+	// 		$(".transactionList").append(divHTML);
+	// 		$(".transaction:last-child p").append(sourceHTML);
+	// 		$(".transaction:last-child p").append(categoryHTML);
+	// 		if(!isNaN(transList[transCounter].inflow)) {
+	// 			$(".transaction:last-child p").append(inflowHTML);
+	// 		} else {
+	// 				$(".transaction:last-child p").append(outflowHTML);
+	// 		};
+	// 	}
+	// }
+		
+		
+	
+	// function calcTotal() {
+	// 	for (var i=0; i < transList.length; i++) {
+	// 		if (!isNaN(transList[i].inflow)) {
+	// 			total = total + transList[i].inflow;
+	// 		} else {
+	// 			total = total - transList[i].outflow;
+	// 		}
+	// 	}
+	// 	$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+	// }
 	
 	
 	
-	createTrans();
-	displayTrans();
-	calcTotal();
+	// pushTrans();
+	// displayTrans();
+	// calcTotal();
 	transCounter++;
 	$("#transForm")[0].reset();
 
@@ -184,7 +236,9 @@ function newTrans() {
 
 
 $("#saveButton").click(function() {
+	createTrans();
 	newTrans();
+	
 })
 
 $("#closeButton").click(function() {
