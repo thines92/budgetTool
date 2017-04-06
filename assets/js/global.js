@@ -27,10 +27,10 @@ function displayTrans() {
 	$("<div class='transaction' data-index-value='" + transCounter + "'> </div>").appendTo(".transactionList");
 	$("<p>Source: <span id='sourceSpan'>" + transList[transCounter].source + "</span></p>").appendTo(".transaction:last-child");
 	$("<p>Category: <span id='categorySpan'>" + transList[transCounter].category + "</span></p>").appendTo(".transaction:last-child");
-	if($("#inflowSpan").length > 0) {
+	if($("#inflow").val().length > 0) {
 		$("<p>Inflow: $<span id='inflowSpan'>" + transList[transCounter].inflow + "</span></p>").appendTo(".transaction:last-child");
 	}
-	if($("#outflowSpan").length > 0) {
+	if($("#outflow").val().length > 0) {
 		$("<p>Outflow: -$<span id='outflowSpan'>" + transList[transCounter].outflow + "</span></p>").appendTo(".transaction:last-child");
 	}
 }
