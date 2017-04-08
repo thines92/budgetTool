@@ -15,10 +15,11 @@ var total = 0;
 function pushTrans() {
 	transList.push({
 		id: transList.length, 
-		source: $("#source").val(), 
-		category:$("#category").val(),
-		inflow: parseFloat($("#inflow").val()), 
-		outflow: parseFloat($("#outflow").val())
+		source: $("#sourceInput").val(), 
+		category:$("#categoryInput").val(),
+		// inflow: parseFloat($("#inflow").val()), 
+		// outflow: parseFloat($("#outflow").val())
+		amount: $("#amountInput").val()
 	});
 }
 
@@ -52,12 +53,22 @@ function createTrans() {
 	calcTotal();
 }
 
+function addNewTransaction() {
+	$("<input id='sourceInput' placeholder='Enter Source' />").prependTo(".source-output");
+	$("<input id='categoryInput' placeholder='Enter Category' />").prependTo(".category-output");
+	$("<input id='amountInput' placeholder='Enter Amount' />").prependTo(".amount-output");
+}
+
+$("#new-transaction-btn").click(function() {
+	addNewTransaction()
+});
+
 
 
 
 function newTrans() {
 	
-	var total = 0;
+	// var total = 0;
 	var source = $("#source").val();
 	var category = $("#category").val();
 	var inflow = parseFloat($("#inflow").val());
