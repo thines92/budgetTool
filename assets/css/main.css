@@ -1,4 +1,4 @@
-.transactionList {
+/*.transactionList {
 	border: 1px solid black;
 	width: 90%;
 	margin-left: 5%;
@@ -32,4 +32,32 @@
 
 .highlight {
 	background-color: blue;
+}*/
+
+#content {
+	height: 100%;
+	border: 1px solid black;
+	padding-bottom: 15px;
+}
+
+.transaction-list {
+	height: 200px;
+	border: 1px solid black;
+	margin-bottom: 5px;
+}
+
+.transaction-list div {
+	border-right: 1px solid black;
+}
+
+.labels {
+	overflow: hidden;
+}
+
+.labels div {
+	text-align: left;
+}
+
+.new-transaction-button {
+	text-align: right;
 }
