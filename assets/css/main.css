@@ -46,7 +46,11 @@
 	margin-bottom: 5px;
 }
 
-.transaction-list div {
+.transaction-list > div {
+	height: 100%;
+}
+
+.transaction-list > div:not(:last-child) {
 	border-right: 1px solid black;
 }
 
