@@ -1,15 +1,7 @@
 var transList = [];
 var transaction = {}
 var transCounter = 0;
-var total = 0;
-
-// function Transaction(id, source, category, inflow, outflow) {
-// 	this.id = id;
-// 	this.source = source;
-// 	this.category = category;
-// 	this.inflow = inflow;
-// 	this.ouflow = outflow;
-// }
+// var total = 0;
 
 // create new transaction and push to array on button click
 function pushTrans() {
@@ -17,34 +9,44 @@ function pushTrans() {
 		id: transList.length, 
 		source: $("#sourceInput").val(), 
 		category:$("#categoryInput").val(),
-		// inflow: parseFloat($("#inflow").val()), 
-		// outflow: parseFloat($("#outflow").val())
-		amount: $("#amountInput").val()
+		inflow: parseFloat($("#inflowInput").val()),
+		outflow: parseFloat($("#outflowInput").val())
 	});
 }
 
 // display all transactions onto dom
 function displayTrans() {
-	$("<div class='transaction' data-index-value='" + transCounter + "'> </div>").appendTo(".transactionList");
-	$("<p>Source: <span id='sourceSpan'>" + transList[transCounter].source + "</span></p>").appendTo(".transaction:last-child");
-	$("<p>Category: <span id='categorySpan'>" + transList[transCounter].category + "</span></p>").appendTo(".transaction:last-child");
-	if($("#inflow").val().length > 0) {
-		$("<p>Inflow: $<span id='inflowSpan'>" + transList[transCounter].inflow + "</span></p>").appendTo(".transaction:last-child");
+	$("<li class='transaction' data-index-value='" + (transList.length - 1) + "'> </li>").prependTo(".transaction-list:first-child");
+	
+	$("<div id='sourceSpan' class='col-sm-4'>" + transList[transList.length - 1].source + "</div>").appendTo(".transaction:first-child");
+	
+	$("<div id='categorySpan' class='col-sm-4'>" + transList[transList.length - 1].category + "</div>").appendTo(".transaction:first-child");
+	
+	if(!isNaN(transList[transList.length - 1].inflow)) {
+		$("<div id='inflowSpan' class='col-sm-2'>" + transList[transList.length - 1].inflow + "</div>").appendTo(".transaction:first-child");
+	} else {
+		$("<div id='inflowSpan' class='col-sm-2'> </div>").appendTo(".transaction:first-child")
 	}
-	if($("#outflow").val().length > 0) {
-		$("<p>Outflow: -$<span id='outflowSpan'>" + transList[transCounter].outflow + "</span></p>").appendTo(".transaction:last-child");
+	
+	if(!isNaN(transList[transList.length - 1].outflow)) {
+		$("<div id='outflowSpan' class='col-sm-2'>" + transList[transList.length - 1].outflow + "</div>").appendTo(".transaction:first-child");
+	} else {
+		$("<div id='inflowSpan' class='col-sm-2'></div>").appendTo(".transaction:first-child")
 	}
+	
+	$('.input-field').hide();
 }
 
 function calcTotal() {
-		for (var i=0; i < transList.length; i++) {
-			if (!isNaN(transList[i].inflow)) {
-				total = total + transList[i].inflow;
-			} else {
-				total = total - transList[i].outflow;
-			}
+	total = 0;
+	for (var i=0; i < transList.length; i++) {
+		if (!isNaN(transList[i].inflow)) {
+			total = total + transList[i].inflow;
+		} else {
+			total = total - transList[i].outflow;
 		}
-		$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
+	}
+	$("#balanceSpan").html(total);
 }
 
 function createTrans() {
@@ -59,71 +61,30 @@ function addNewTransaction() {
 	$("<input id='amountInput' placeholder='Enter Amount' />").prependTo(".amount-output");
 }
 
+function addNewTransaction() {
+	$('.input-field').show();
+	$('#new-transaction-btn').hide();
+	$('#save-transaction-btn').show();
+}
+
 $("#new-transaction-btn").click(function() {
 	addNewTransaction()
 });
+
+$("#new-transaction-btn").click(function() {
+	addNewTransaction()
+});
+
+$('#save-transaction-btn').click(function() {
+	createTrans();
+	$('#save-transaction-btn').hide();
+	$('#new-transaction-btn').show();
+})
 
 
 
 
 function newTrans() {
-	
-	// var total = 0;
-	var source = $("#source").val();
-	var category = $("#category").val();
-	var inflow = parseFloat($("#inflow").val());
-	var outflow = parseFloat($("#outflow").val());
-	
-	// function pushTrans() {
-	// 	transList.push({id: transCounter, source: source, inflow: inflow, outflow: outflow});
-	// };
-	
-	// function displayTrans() {
-		
-	// 	var divHTML = "<div class='transaction' data-index-value='" + transCounter + "'><p></p></div>"
-		
-	// 	var sourceHTML = "Source: <span id='sourceSpan'>" + transList[transCounter].source + "</span>";
-		
-	// 	var categoryHTML = "Category: <span id='categorySpan'>" + category + "</span>";
-		
-	// 	var inflowHTML = "Inflow: $<span id='inflowSpan'>" + transList[transCounter].inflow + "</span>";
-		
-	// 	var outflowHTML = "Outflow: -$<span id='outflowSpan'>" + transList[transCounter].outflow + "</span>";
-		
-		
-	
-	// 	if (!isNaN(inflow) || !isNaN(outflow)) {
-	// 		$(".transactionList").append(divHTML);
-	// 		$(".transaction:last-child p").append(sourceHTML);
-	// 		$(".transaction:last-child p").append(categoryHTML);
-	// 		if(!isNaN(transList[transCounter].inflow)) {
-	// 			$(".transaction:last-child p").append(inflowHTML);
-	// 		} else {
-	// 				$(".transaction:last-child p").append(outflowHTML);
-	// 		};
-	// 	}
-	// }
-		
-		
-	
-	// function calcTotal() {
-	// 	for (var i=0; i < transList.length; i++) {
-	// 		if (!isNaN(transList[i].inflow)) {
-	// 			total = total + transList[i].inflow;
-	// 		} else {
-	// 			total = total - transList[i].outflow;
-	// 		}
-	// 	}
-	// 	$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
-	// }
-	
-	
-	
-	// pushTrans();
-	// displayTrans();
-	// calcTotal();
-	transCounter++;
-	$("#transForm")[0].reset();
 
 	//adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
 	function addEditButton() {
