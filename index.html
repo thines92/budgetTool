@@ -3,110 +3,62 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Bootstrap Core CSS File(s) -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Bootstrap Core CSS File(s) -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
-        <!-- Custom CSS File -->
-        <link rel="stylesheet" href="assets/css/main.css">
+    <!-- Custom CSS File -->
+    <link rel="stylesheet" href="assets/css/main.css">
 
-        <!-- FontAwesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
 
-    
-    <!-- <div class="container">
-        <div>
-            <a href="#"><i class="fa fa-plus-circle" id="addTransaction"></i></a>
-        </div>
-        <div class="row">
-            <div class="transactionList col-xs-10">
+  <div class="container-fluid">
+    <div class="row">
+
+      <section id="content" class='col-sm-12'>
+        <div class="labels">
+          <p>Source</p>
+          <p>Category</p>
+          <p>Inflow</p>
+          <p>Outflow</p>
+        </div><!-- labels -->
+
+        <div class="transaction-list-wrapper">
+                                
+          <ul class="transaction-list">
+                    
+            <li class="input-field" style='display:none'>
+              <input type="text" id='sourceInput' class='col-sm-4' placeholder='Source'/>
+              <input type="text" id='categoryInput' class='col-sm-4' placeholder='Category'/>
+              <input type="text" id='inflowInput' class='col-sm-2' placeholder='Inflow'/>
+              <input type="text" id='outflowInput' class='col-sm-2' placeholder='Outflow'/>
+            </li>
                 
-            
-            </div>
-        </div>
-        <div class="row">
-            <div class="total-balance col-xs-12"></div>
-        </div>
-        <div class="row">
-            <form action="" id="transForm" class="col-xs-12">
-                <div>
-                    <label for="source">Source</label>
-                    <input type="text" id="source" />
-                </div>
-                <div>
-                    <label for="category">Category</label>
-                    <input type="text" id="category" />
-                </div>
-                <div>
-                    <label for="inflow">Inflow</label>
-                    <input type="text" id="inflow" />
-                </div>
-                <div>
-                    <label for="outflow">Outflow</label>
-                    <input type="text" id="outflow" />
-                </div>
-                <input type="button" id="saveButton" class="btn btn-primary" value="Save and Add Another" />
-                <input type="button" id="closeButton" class="btn btn-danger" value="Save and Close" />
-            </form>
-        </div>
-    </div> -->
+          </ul>
+                
+        </div><!-- transaction-list-wrapper -->
 
-    <div class="container">
-        <div class="row">
-
-            <section id="content" class='col-sm-10 col-sm-offset-1'>
-                <div class="labels">
-                    <div class="col-sm-5">
-                        <h4>Source</h4>
-                    </div>
-                    <div class="col-sm-5">
-                        <h4>Category</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <h4>Amount</h4>
-                    </div>
-                </div><!-- labels -->
-
-                <div class="transaction-list">
-                    <div class="col-sm-5">
-                        <div class="source-output">
-                            
-                        </div>                        
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="category-output">
-                            
-                        </div> 
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="amount-output">
-                            
-                        </div> 
-                    </div>
-                </div><!-- transaction-list -->
-
-                <div class="bottom-nav">
-                    <div class="col-sm-6 balance-output">
-                        <p>Balance: <span id='balanceSpan'></span></p>
-                    </div>
-                    <div class="col-sm-6">
-                        <button type='button' id="new-transaction-btn" class="btn btn-primary">New Transaction</button>
-                    </div>
-                </div><!-- bottom-nav -->
-            </section>
-            
-        </div><!-- row -->
-    </div><!-- container -->
+        <div class="bottom-nav">
+          <div class="col-sm-6 balance-output">
+            <p>Balance: <span id='balanceSpan'></span></p>
+          </div>
+          <div class="col-sm-6">
+            <button type='button' id="new-transaction-btn" class="btn btn-primary">New Transaction</button>
+            <button type='button' id="save-transaction-btn" class="btn btn-primary" style='display:none'>Save Transaction</button>
+          </div>
+        </div><!-- bottom-nav -->
+      </section>
+        
+    </div><!-- row -->
+  </div><!-- container -->
     
 </body>
         
