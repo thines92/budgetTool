@@ -1,7 +1,7 @@
 var transList = [];
 var transaction = {}
 var transCounter = 0;
-// var total = 0;
+var total = 0;
 
 // create new transaction and push to array on button click
 function pushTrans() {
@@ -38,7 +38,6 @@ function displayTrans() {
 }
 
 function calcTotal() {
-	total = 0;
 	for (var i=0; i < transList.length; i++) {
 		if (!isNaN(transList[i].inflow)) {
 			total = total + transList[i].inflow;
@@ -117,10 +116,10 @@ function enterEditMode() {
 		$(".editButton").parent().find('#outflowSpan').html("<input type='text' placeholder='outflow' id='changeOutflow' />");
 	}
 	function showButtons() {
-		$('#saveEdit').remove();
-		$('#cancelEdit').remove();
-		$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />"
-		 + "<input type='button' value='cancel' id='cancelEdit' />");
+		$('#saveEditButton').remove();
+		$('#cancelEditButton').remove();
+		$(".editButton").parent().append("<input type='button' value='save' id='saveEditButton' />"
+		 + "<input type='button' value='cancel' id='cancelEditButton' />");
 
 	}		
 
@@ -130,93 +129,59 @@ function enterEditMode() {
 	inflowEdit();
 	outflowEdit();	
 }
-
-//finds the data-index-value of the editButton's parent element
+//allows user to edit a transaction when editButton is clicked
 $("body").on('click', '.editButton', enterEditMode);
+
+function saveEdit() {
+	var dataIndex = $(this).closest('.transaction').attr('data-index-value');
+
+	function saveSource() {
+		var newSource = $("#changeSource").val();
+		transList[dataIndex].source = newSource;
+		$("[data-index-value='" + dataIndex + "'").find("#sourceSpan").html(transList[dataIndex].source);
+	}
+
+	function saveCategory() {
+		var newCategory = $("#changeCategory").val();
+		transList[dataIndex].category = newCategory;
+		$("[data-index-value='" + dataIndex + "'").find("#categorySpan").html(transList[dataIndex].category);
+	}
+
+	function saveInflow() {
+		if($("#inflowSpan").length) {
+			var oldInflow = transList[dataIndex].inflow;
+			var newInflow = parseFloat($('#changeInflow').val());
+			transList[dataIndex].inflow = newInflow;
+			total = ($("#balanceSpan").html() - oldInflow) + newInflow;
+			$("[data-index-value='" + dataIndex + "'").find("#inflowSpan").html(transList[dataIndex].inflow);
+			$("#balanceSpan").html("$" + total);
+		}
+	}
+
+	function saveOutflow() {
+		if($("#outflowSpan").length) {
+			var oldOutflow = transList[dataIndex].outflow;
+			var newOutflow = parseFloat($('#changeOutflow').val());
+			transList[dataIndex].outflow = newOutflow;
+			total = (parseFloat($("#total").html()) + parseFloat(oldOutflow)) - parseFloat(newOutflow);
+			$("[data-index-value='" + dataIndex + "'").find("#outflowSpan").html(transList[dataIndex].outflow);
+			$("#balanceSpan").html("$" + total);
+		}
+	}
+
+	saveSource();
+	saveCategory();
+	saveInflow();
+	saveOutflow();
+}
+$("body").on('click', '#saveEditButton', saveEdit);
+
+$("#saveEditButton").click(function() {
+	createTrans();	
+});
 
 
 function newTrans() {
-
-	
-
-	
-
-	function saveEdit() {
-		function saveSource() {
-			var dataIndex = $("#changeSource").closest(".transaction").attr('data-index-value');
-			var newSource = $("#changeSource").val();
-			transList[dataIndex].source = newSource;
-			$("[data-index-value='" + dataIndex + "'").find("p #sourceSpan").html(newSource);
-			
-		}
-		function saveCategory() {
-			var dataIndex = $("#changeCategory").closest(".transaction").attr('data-index-value');
-			var newCategory = $("#changeCategory").val();
-			transList[dataIndex].category = newCategory;
-			$("[data-index-value='" + dataIndex + "'").find("p #categorySpan").html(newCategory);
-		}
-		function saveInflow() {
-			if($("#inflowSpan").length) {
-				var dataIndex = $("#changeInflow").closest(".transaction").attr('data-index-value');
-				var oldInflow = transList[dataIndex].inflow;
-				var newInflow = parseFloat($('#changeInflow').val());
-				transList[dataIndex].inflow = newInflow;
-				total = ($("#total").html() - oldInflow) + newInflow;
-				$("[data-index-value='" + dataIndex + "'").find("p #inflowSpan").html(newInflow);
-				$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
-			}
-		}
-		function saveOutflow() {
-			if($("#outflowSpan").length) {
-				var dataIndex = $("#changeOutflow").closest(".transaction").attr('data-index-value');
-				var oldOutflow = transList[dataIndex].outflow;
-				var newOutflow = parseFloat($('#changeOutflow').val());
-				transList[dataIndex].outflow = newOutflow;
-				total = (parseFloat($("#total").html()) + parseFloat(oldOutflow)) - parseFloat(newOutflow);
-				$("[data-index-value='" + dataIndex + "'").find("p #outflowSpan").html(newOutflow);
-				$(".total-balance").html("<p>Total: $<span id='total'>" + total + "</span></p>");
-			}
-		}
-
-		
-
-		saveSource();
-		saveCategory();
-		saveInflow();
-		saveOutflow();
-		$("#saveEdit").remove();
-		$("#cancelEdit").remove();
-	}
-
-	function loadEdit() {
-		$("#saveEdit").remove();
-		function sourceEdit() {
-			$(".editButton").parent().find('p #sourceSpan').html("<input type='text' placeholder='source' id='changeSource' />")
-		}
-		function categoryEdit() {
-			$(".editButton").parent().find('p #categorySpan').html("<input type='text' placeholder='category' id='changeCategory' />")
-		}
-		function inflowEdit() {
-			$(".editButton").parent().find('p #inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />");
-		}
-		function outflowEdit() {
-			$(".editButton").parent().find('p #outflowSpan').html("<input type='text' placeholder='outflow' id='changeOutflow' />");
-		}
-		function showButtons() {
-			$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />"
-			 + "<input type='button' value='cancel' id='cancelEdit' />");
-
-		}		
-
-		showButtons();
-		sourceEdit();
-		categoryEdit();
-		inflowEdit();
-		outflowEdit();	
-	}
-
-	
-
 	function deleteTransactionObject() {
 		var dataIndex = $(".deleteButton").closest(".transaction").attr('data-index-value');
 		transList.splice(dataIndex, 1);
@@ -234,7 +199,6 @@ function newTrans() {
 
 	
 
-	$("body").on('click', '#saveEdit', saveEdit);
 
 	$("body").on('click', '.deleteButton', deleteTransactionObject);
 
@@ -243,24 +207,7 @@ function newTrans() {
 };
 
 
-$("#saveButton").click(function() {
-	createTrans();
-	newTrans();
-	
-})
 
-$("#closeButton").click(function() {
-	newTrans();
-	$("#transForm").hide();
-})
-
-$("#addTransaction").click(function() {
-	$("#transForm").show();
-})
-
-// $(document).ready(function() {
-// 	$("#transForm").hide();
-// })
 
 
 
