@@ -82,44 +82,46 @@ $('#save-transaction-btn').click(function() {
 })
 
 //adds an editButton on .transaction that is clicked. Also removes edit button when another .transaction is clicked.
-	function addEditButton() {
-		//check to make sure editButton doesn't already exist
-		if (!$(event.target).closest('.editButton').length > 0) {
-			$('.editButton').remove();
-			$(".transaction.highlight").removeClass('highlight');
-			$(this).addClass('highlight');
-			$(this).append("<input type='button' class='editButton' value='edit' />");
-		}
+function addEditButton() {
+	//check to make sure editButton doesn't already exist
+		$('.editButton').remove();
+		$(".transaction.highlight").removeClass('highlight');
+		$(this).addClass('highlight');
+		$(this).append("<input type='button' class='editButton btn btn-secondary' value='edit' />");
+	
+}
+
+$("body").on('click', '.transaction', addEditButton);
+
+function enterEditMode() {
+	$("#saveEdit").remove();
+	function sourceEdit() {
+		$(".editButton").parent().find('#sourceSpan').html("<input type='text' placeholder='source' id='changeSource' />")
 	}
-
-	$("body").on('click', '.transaction', addEditButton);
-
-	function loadEdit() {
-		$("#saveEdit").remove();
-		function sourceEdit() {
-			$(".editButton").parent().find('p #sourceSpan').html("<input type='text' placeholder='source' id='changeSource' />")
-		}
-		function categoryEdit() {
-			$(".editButton").parent().find('p #categorySpan').html("<input type='text' placeholder='category' id='changeCategory' />")
-		}
-		function inflowEdit() {
-			$(".editButton").parent().find('p #inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />");
-		}
-		function outflowEdit() {
-			$(".editButton").parent().find('p #outflowSpan').html("<input type='text' placeholder='outflow' id='changeOutflow' />");
-		}
-		function showButtons() {
-			$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />"
-			 + "<input type='button' value='cancel' id='cancelEdit' />");
-
-		}		
-
-		showButtons();
-		sourceEdit();
-		categoryEdit();
-		inflowEdit();
-		outflowEdit();	
+	function categoryEdit() {
+		$(".editButton").parent().find('#categorySpan').html("<input type='text' placeholder='category' id='changeCategory' />")
 	}
+	function inflowEdit() {
+		$(".editButton").parent().find('#inflowSpan').html("<input type='text' placeholder='inflow' id='changeInflow' />");
+	}
+	function outflowEdit() {
+		$(".editButton").parent().find('#outflowSpan').html("<input type='text' placeholder='outflow' id='changeOutflow' />");
+	}
+	function showButtons() {
+		$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />"
+		 + "<input type='button' value='cancel' id='cancelEdit' />");
+
+	}		
+
+	showButtons();
+	sourceEdit();
+	categoryEdit();
+	inflowEdit();
+	outflowEdit();	
+}
+
+//finds the data-index-value of the editButton's parent element
+$("body").on('click', '.editButton', enterEditMode);
 
 
 function newTrans() {
@@ -225,8 +227,7 @@ function newTrans() {
 
 	$("body").on('click', '.transaction', addDeleteButton);
 
-	//finds the data-index-value of the editButton's parent element
-	$("body").on('click', '.editButton', loadEdit);
+	
 
 	$("body").on('click', '#saveEdit', saveEdit);
 
