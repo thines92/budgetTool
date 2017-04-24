@@ -154,7 +154,7 @@ function saveEdit() {
 			transList[dataIndex].inflow = newInflow;
 			total = ($("#balanceSpan").html() - oldInflow) + newInflow;
 			$("[data-index-value='" + dataIndex + "'").find("#inflowSpan").html(transList[dataIndex].inflow);
-			$("#balanceSpan").html("$" + total);
+			$("#balanceSpan").html(total);
 		}
 	}
 
