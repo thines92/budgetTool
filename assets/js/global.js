@@ -181,6 +181,23 @@ function saveEdit() {
 }
 $("body").on('click', '#saveEditButton', saveEdit);
 
+function cancelEdit() {
+		var dataIndex = $(this).closest('.transaction').attr('data-index-value');
+
+	$("#sourceSpan").html(transList[dataIndex].source);
+	$("#categorySpan").html(transList[dataIndex].category);
+	if (transList[dataIndex].inflow) {
+		$("#inflowSpan").html(transList[dataIndex].inflow);
+	}
+	if (transList[dataIndex].outflow) {
+		$("#outflowSpan").html(transList[dataIndex].outflow);
+	}
+	$("#saveEditButton").remove();
+	$("#cancelEditButton").remove();
+}
+$("body").on('click', '#cancelEditButton', cancelEdit);
+
+
 function removeButtons() {
 	$('.transaction input').remove();	
 }
@@ -196,14 +213,7 @@ function newTrans() {
 		transList.splice(dataIndex, 1);
 	}
 
-	function cancelEdit() {
-		$("#sourceSpan").html(source);
-		$("#categorySpan").html(category);
-		$("#inflowSpan").html(inflow);
-		$("#outflowSpan").html(outflow);
-		$("#saveEdit").remove();
-		$("#cancelEdit").remove();
-	}
+	
 
 
 	
@@ -211,7 +221,6 @@ function newTrans() {
 
 	$("body").on('click', '.deleteButton', deleteTransactionObject);
 
-	$("body").on('click', '#cancelEdit', cancelEdit);
 	
 };
 
