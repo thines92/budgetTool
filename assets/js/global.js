@@ -162,12 +162,13 @@ function saveEdit() {
 
 	function saveOutflow() {
 		if($("#outflowSpan").length) {
-			var oldOutflow = transList[dataIndex].outflow;
+			// var oldOutflow = transList[dataIndex].outflow;
 			var newOutflow = parseFloat($('#changeOutflow').val());
 			transList[dataIndex].outflow = newOutflow;
-			total = (parseFloat($("#total").html()) + parseFloat(oldOutflow)) - parseFloat(newOutflow);
+			// total = (parseFloat($("#total").html()) + parseFloat(oldOutflow)) - parseFloat(newOutflow);
 			$("[data-index-value='" + dataIndex + "'").find("#outflowSpan").html(transList[dataIndex].outflow);
-			$("#balanceSpan").html("$" + total);
+			// $("#balanceSpan").html("$" + total);
+			calcTotal();
 		}
 	}
 
@@ -175,8 +176,14 @@ function saveEdit() {
 	saveCategory();
 	saveInflow();
 	saveOutflow();
+	removeButtons();
+
 }
 $("body").on('click', '#saveEditButton', saveEdit);
+
+function removeButtons() {
+	$('.transaction input').remove();	
+}
 
 $("#saveEditButton").click(function() {
 	createTrans();	
