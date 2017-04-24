@@ -22,40 +22,42 @@
 
   <div class="container-fluid">
     <div class="row">
+      <section id="content" class='col-xs-12'>
+        <div class="budget-js">
+          <div class="labels">
+            <p class="col-xs-4">Source</p>
+            <p class="col-xs-4">Category</p>
+            <p class="col-xs-2">Inflow</p>
+            <p class="col-xs-2">Outflow</p>
+          </div><!-- labels -->
 
-      <section id="content" class='col-sm-12'>
-        <div class="labels">
-          <p class="col-sm-4">Source</p>
-          <p class="col-sm-4">Category</p>
-          <p class="col-sm-2">Inflow</p>
-          <p class="col-sm-2">Outflow</p>
-        </div><!-- labels -->
+          <div class="transaction-list-wrapper">
+                                  
+            <ul class="transaction-list">
+                      
+              <li class="input-field" style='display:none'>
+                <input type="text" id='sourceInput' class='col-xs-4' placeholder='Source'/>
+                <input type="text" id='categoryInput' class='col-xs-4' placeholder='Category'/>
+                <input type="text" id='inflowInput' class='col-xs-2' placeholder='Inflow'/>
+                <input type="text" id='outflowInput' class='col-xs-2' placeholder='Outflow'/>
+              </li><!-- input-field -->
+                  
+            </ul><!-- transaction-list -->
+                  
+          </div><!-- transaction-list-wrapper -->
 
-        <div class="transaction-list-wrapper">
-                                
-          <ul class="transaction-list">
-                    
-            <li class="input-field" style='display:none'>
-              <input type="text" id='sourceInput' class='col-sm-4' placeholder='Source'/>
-              <input type="text" id='categoryInput' class='col-sm-4' placeholder='Category'/>
-              <input type="text" id='inflowInput' class='col-sm-2' placeholder='Inflow'/>
-              <input type="text" id='outflowInput' class='col-sm-2' placeholder='Outflow'/>
-            </li>
-                
-          </ul>
-                
-        </div><!-- transaction-list-wrapper -->
-
-        <div class="bottom-nav">
-          <div class="col-sm-6 balance-output">
-            <p>Balance: <span id='balanceSpan'></span></p>
-          </div>
-          <div class="col-sm-6">
-            <button type='button' id="new-transaction-btn" class="btn btn-primary">New Transaction</button>
-            <button type='button' id="save-transaction-btn" class="btn btn-primary" style='display:none'>Save Transaction</button>
-          </div>
-        </div><!-- bottom-nav -->
+          <div class="bottom-nav">
+            <div class="col-sm-6 balance-output">
+              <p>Balance: <span id='balanceSpan'></span></p>
+            </div>
+            <div class="col-sm-6">
+              <button type='button' id="new-transaction-btn" class="btn btn-primary">New Transaction</button>
+              <button type='button' id="save-transaction-btn" class="btn btn-primary" style='display:none'>Save Transaction</button>
+            </div>
+          </div><!-- bottom-nav -->
+        </div><!-- budget-js -->
       </section>
+
         
     </div><!-- row -->
   </div><!-- container -->

@@ -53,15 +53,18 @@ ul li {
 	text-align: center;
 }
 
+input {
+	text-align: center;
+}
+
+.highlight {
+	background-color: blue;
+}
+
 .transaction {
 	text-align: center;
 }
 
 .new-transaction-button {
 	text-align: right;
-}
-
-.bottom-nav {
-	display: flex;
-	
 }
