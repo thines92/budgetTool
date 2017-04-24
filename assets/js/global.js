@@ -38,6 +38,7 @@ function displayTrans() {
 }
 
 function calcTotal() {
+	total = 0;
 	for (var i=0; i < transList.length; i++) {
 		if (!isNaN(transList[i].inflow)) {
 			total = total + transList[i].inflow;
@@ -149,12 +150,13 @@ function saveEdit() {
 
 	function saveInflow() {
 		if($("#inflowSpan").length) {
-			var oldInflow = transList[dataIndex].inflow;
+			// var oldInflow = transList[dataIndex].inflow;
 			var newInflow = parseFloat($('#changeInflow').val());
 			transList[dataIndex].inflow = newInflow;
-			total = ($("#balanceSpan").html() - oldInflow) + newInflow;
+			// total = ($("#balanceSpan").html() - oldInflow) + newInflow;
 			$("[data-index-value='" + dataIndex + "'").find("#inflowSpan").html(transList[dataIndex].inflow);
-			$("#balanceSpan").html(total);
+			// $("#balanceSpan").html(total);
+			calcTotal();
 		}
 	}
 
