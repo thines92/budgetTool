@@ -88,10 +88,19 @@ function addEditButton() {
 		$(".transaction.highlight").removeClass('highlight');
 		$(this).addClass('highlight');
 		$(this).append("<input type='button' class='editButton btn btn-secondary' value='edit' />");
-	
 }
-
 $("body").on('click', '.transaction', addEditButton);
+
+function addDeleteButton() {
+	$(".deleteButton").remove();
+	$(this).append("<input type='button' class='deleteButton' value='delete' />");
+}
+$("body").on('click', '.transaction', addDeleteButton);	
+
+function deleteTransaction() {
+	$('.deleteButton').parent().remove();
+}
+$("body").on('click', '.deleteButton', deleteTransaction);	
 
 function enterEditMode() {
 	$("#saveEdit").remove();
@@ -108,6 +117,8 @@ function enterEditMode() {
 		$(".editButton").parent().find('#outflowSpan').html("<input type='text' placeholder='outflow' id='changeOutflow' />");
 	}
 	function showButtons() {
+		$('#saveEdit').remove();
+		$('#cancelEdit').remove();
 		$(".editButton").parent().append("<input type='button' value='save' id='saveEdit' />"
 		 + "<input type='button' value='cancel' id='cancelEdit' />");
 
@@ -128,10 +139,7 @@ function newTrans() {
 
 	
 
-	function addDeleteButton() {
-		$(".deleteButton").remove();
-		$(this).append("<input type='button' class='deleteButton' value='delete' />");
-	}
+	
 
 	function saveEdit() {
 		function saveSource() {
@@ -207,9 +215,7 @@ function newTrans() {
 		outflowEdit();	
 	}
 
-	function deleteTransaction() {
-		$('.deleteButton').parent().remove();
-	}
+	
 
 	function deleteTransactionObject() {
 		var dataIndex = $(".deleteButton").closest(".transaction").attr('data-index-value');
@@ -225,13 +231,11 @@ function newTrans() {
 		$("#cancelEdit").remove();
 	}
 
-	$("body").on('click', '.transaction', addDeleteButton);
 
 	
 
 	$("body").on('click', '#saveEdit', saveEdit);
 
-	$("body").on('click', '.deleteButton', deleteTransaction);
 	$("body").on('click', '.deleteButton', deleteTransactionObject);
 
 	$("body").on('click', '#cancelEdit', cancelEdit);
